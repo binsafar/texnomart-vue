@@ -6,12 +6,12 @@ export default {
   data() {
     return {
       student: {
-        id: 1,
         name: '',
         phone: '',
         grade: 1
       },
-      dialog: false
+      dialog: false,
+      dialog_nd: false
     }
   },
   setup() {
@@ -82,11 +82,12 @@ export default {
         <p>{{ student.phone }}</p>
         <p>{{ student.grade }}</p>
         <button>edit</button>
-        <button>delete</button>
+        <button v-on:click="studentStore.delete(student.id)">delete</button>
       </div>
     </div>
   </div>
 </template>
+
 <style>
 .header {
   display: flex;

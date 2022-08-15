@@ -1,14 +1,34 @@
 <script>
+import {useStudentsStore} from "../stores/students";
 
+export default {
+  data() {
+    return {
+      cred: {
+        login: 'admin',
+        password: 'admin'
+      }
+    }
+  },
+  setup() {
+    const store = useStudentsStore();
+    return {store}
+  }
+}
 </script>
 
 <template>
   <div class="container">
-    <div class="wrapper">
+    <div v-if="store.auth ===true" class="wrapper">
+      <p>YOU ARE LOGGED IN</p>
+      <button v-on:click="store.logout()">LOGOUT</button>
+    </div>
+    <div v-else class="wrapper">
       <p>Authentication</p>
-      <input placeholder="Login" type="text">
-      <input placeholder="Password" type="password">
-      <button>LOGIN</button>
+      <input v-model="cred.login" placeholder="Login" type="text">
+      <input v-model="cred.password" placeholder="Password" type="password">
+      <button v-on:click="store.login(cred.login, cred.password)">LOGIN
+      </button>
     </div>
   </div>
 </template>

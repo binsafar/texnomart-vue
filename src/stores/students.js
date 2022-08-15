@@ -11,20 +11,39 @@ export const useStudentsStore = defineStore({
                 grade: 2
             },
             {
-                id: 1,
+                id: 2,
                 name: 'Warren Musk',
                 phone: '998901234567',
                 grade: 4
             }
-        ]
+        ],
+        counter: 2,
+        auth: false
     }),
     getters: {
-        doubleCount: (state) => state.counter * 2
+        // doubleCount: (state) => state.counter * 2
     },
     actions: {
         register(student) {
-            this.students.push(student)
-            console.log(this.students)
+            this.counter++
+            this.students.push({id: this.counter, ...student})
+        },
+        delete(id) {
+            for (let i = 0; i < this.students.length; i++) {
+                if (this.students[i].id === id) {
+                    this.students.splice(i, 1)
+                }
+            }
+        },
+        login(login, password) {
+            if (login === 'admin' && password === 'admin') {
+                this.auth = true
+            } else {
+                console.log('login or password is incorrect')
+            }
+        },
+        logout() {
+            this.auth = false
         }
     }
 })
